@@ -150,3 +150,15 @@ select m.first_name,m.email,m.specialization from mentors m inner join courses c
 select c.course_name,count(m.id) from mentors m inner join courses c on m.course_id = c.id group by  course_name  ;
 -- -- Сгруппируйте и посчитайте менторов в каждом курсе и выведите только те курсы, где в курсе больше 2 менторов
 select c.course_name,count(m.id) from courses c inner join mentors m on c.id = m.course_id group by course_name having count(m)>=2;
+select c.course_name,count(m.id) from courses c inner join mentors m on c.id = m.course_id group by course_name having count(m)>=2;
+-- -- Вывести название, дату и полное имя ментора, все курсы которые начинаются с 2020-1-1 по
+select c.course_name,c.date_of_start,m.first_name  from courses c inner join mentors m on c.id = m.course_id
+where c.date_of_start between '2020-1-1'and '2023-3-3';
+-- -- Вывести имя, почту, возраст студентов курса 'Java'
+select s.first_name,s.email,s.date_of_birth from students s inner join groups g on s.group_id = g.id where group_name = 'Java';
+-- -- Вывести тот курс у где нет ментора
+select c.course_name from courses c left join mentors m on c.id = m.course_id where m.first_name is  null ;
+-- -- Вывести тот курс у где нет уроков
+select c.course_name from courses c left join lessons l on c.id = l.course_id where lesson_name is null ;
+-- -- Вывести тот курс у где нет студентов
+select c.course_name from courses c left join students s on c.group_id = s.group_id where first_name is  null;
